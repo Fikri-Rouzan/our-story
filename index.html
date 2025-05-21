@@ -10,6 +10,13 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Our Story</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -21,30 +28,28 @@
         <a href="#/" class="text-xl font-bold">Our Story</a>
         <nav class="hidden md:flex space-x-4">
           <button
+            id="nav-home-btn"
+            class="px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
+          >
+            Home
+          </button>
+          <button
             id="nav-add-story-btn"
             class="px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
           >
             Add Story
           </button>
           <button
+            id="nav-notif-btn"
+            class="px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
+          ></button>
+          <button
             id="nav-auth-btn"
             class="px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
           ></button>
         </nav>
         <button id="mobile-menu-button" class="md:hidden focus:outline-none">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <i class="fas fa-bars"></i>
         </button>
       </div>
       <div
@@ -52,15 +57,27 @@
         class="fixed inset-y-0 right-0 w-64 bg-white shadow transform translate-x-full transition-transform"
       >
         <div class="p-4 flex justify-end">
-          <button id="mobile-menu-close" class="focus:outline-none">✕</button>
+          <button id="mobile-menu-close" class="focus:outline-none">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
         <nav class="px-4 space-y-2">
+          <button
+            id="mobile-nav-home-btn"
+            class="w-full text-left px-3 py-2 rounded-md text-base font-medium focus:outline-none"
+          >
+            Home
+          </button>
           <button
             id="mobile-nav-add-btn"
             class="w-full text-left px-3 py-2 rounded-md text-base font-medium focus:outline-none"
           >
             Add Story
           </button>
+          <button
+            id="mobile-nav-notif-btn"
+            class="w-full text-left px-3 py-2 rounded-md text-base font-medium focus:outline-none"
+          ></button>
           <button
             id="mobile-nav-auth-btn"
             class="w-full text-left px-3 py-2 rounded-md text-base font-medium focus:outline-none"

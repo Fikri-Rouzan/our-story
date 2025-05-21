@@ -6,7 +6,8 @@ export default class HomeView {
   render(userName, stories = []) {
     this.container.innerHTML = `
       <div class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
-        <h1 class="text-3xl mb-6">Selamat datang, ${userName}!</h1>
+        <h1 class="text-3xl mb-4">Selamat datang, ${userName}!</h1>
+        <div id="map" class="w-full h-64 mb-6 rounded-lg shadow"></div>
         <div id="stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           ${stories
             .map(
@@ -16,15 +17,16 @@ export default class HomeView {
               <img
                 src="${s.photoUrl}"
                 alt="${s.description}"
-                class="w-full h-48 object-cover"
+                class="w-full h-40 object-cover"
               />
-              <div class="p-4">
-                <h2 class="font-medium text-lg mb-2">${s.name}</h2>
-                <p class="text-sm text-gray-600 mb-4">${s.description}</p>
-                <a href="#/story/${s.id}"
-                   class="text-blue-600 hover:underline text-sm">
-                  Lihat Detail →
-                </a>
+              <div class="p-4 space-y-1">
+                <h2 class="font-semibold text-lg">${s.name}</h2>
+                <p class="text-sm text-gray-700">${s.description}</p>
+                <p class="text-xs text-gray-500">
+                  ${new Date(s.createdAt).toLocaleDateString()} ${new Date(
+                s.createdAt
+              ).toLocaleTimeString()}
+                </p>
               </div>
             </div>
           `
@@ -37,11 +39,10 @@ export default class HomeView {
   bindCardClicks(handler) {
     this.container
       .querySelector("#stories-grid")
-      .addEventListener("click", (event) => {
-        const card = event.target.closest(".story-card");
+      .addEventListener("click", (e) => {
+        const card = e.target.closest(".story-card");
         if (!card) return;
-        const id = card.dataset.id;
-        handler(id);
+        handler(card.dataset.id);
       });
   }
 }

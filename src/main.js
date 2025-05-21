@@ -1,3 +1,4 @@
+import "leaflet/dist/leaflet.css";
 import Router from "./router.js";
 import AuthModel from "./models/AuthModel.js";
 import StoryModel from "./models/StoryModel.js";

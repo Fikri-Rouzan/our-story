@@ -7,24 +7,33 @@ export default class AddStoryPresenter {
 
   init() {
     this.view.render();
-    this.view.bindSubmit(this.handleSubmit.bind(this));
+    this.view._initElements();
+    this.view.bindUIActions();
+    this.view.initMap();
+    this.view.bindSubmit(this._handleSubmit.bind(this));
   }
 
-  handleSubmit(data) {
+  _handleSubmit({ description, photo, lat, lon }) {
     const token = localStorage.getItem("token");
+    const payload = {
+      description,
+      photo,
+      lat: lat || undefined,
+      lon: lon || undefined,
+    };
     const action = token
-      ? this.model.addStory(data, token)
-      : this.model.addStoryGuest(data);
+      ? this.model.addStory(payload, token)
+      : this.model.addStoryGuest(payload);
 
     action
       .then((res) => {
         if (!res.error) {
-          this.view.showMessage("Story berhasil ditambahkan.");
+          alert("Story berhasil ditambahkan.");
           location.hash = "/";
         } else {
-          this.view.showMessage(res.message);
+          alert(res.message);
         }
       })
-      .catch(() => this.view.showMessage("Terjadi kesalahan jaringan."));
+      .catch(() => alert("Terjadi kesalahan jaringan."));
   }
 }

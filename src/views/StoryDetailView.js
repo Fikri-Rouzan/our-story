@@ -5,28 +5,40 @@ export default class StoryDetailView {
 
   render(story) {
     this.container.innerHTML = `
-      <div class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
-        <button id="back-btn" class="mb-4 text-blue-600 hover:underline">
+    <main id="main-content" class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
+      <nav aria-label="Navigasi balik" class="mb-4">
+        <button id="back-btn" class="text-blue-600 hover:underline">
           ← Kembali
         </button>
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow overflow-hidden">
+      </nav>
+
+      <article class="max-w-2xl mx-auto bg-white rounded-lg shadow overflow-hidden">
+        <header class="p-6 space-y-2">
+          <h1 class="text-2xl font-medium">${story.name}</h1>
+          <time datetime="${story.createdAt}" class="text-gray-500 block">
+            ${new Date(story.createdAt).toLocaleString()}
+          </time>
+        </header>
+
+        <figure>
           <img
             src="${story.photoUrl}"
-            alt="${story.description}"
+            alt="Foto story oleh ${story.name}: ${story.description}"
             class="w-full h-64 object-cover"
           />
-          <div class="p-6 space-y-4">
-            <h2 class="text-2xl font-medium">${story.name}</h2>
-            <p class="text-gray-500">
-              ${new Date(story.createdAt).toLocaleString()}
-            </p>
-            <p>${story.description}</p>
-          </div>
-        </div>
-        <div id="detail-map" class="max-w-2xl mx-auto mt-6 bg-white rounded-lg shadow overflow-hidden">
-          <div class="w-full h-64" id="map-container"></div>
-        </div>
-      </div>`;
+          <figcaption class="p-6 text-gray-700">
+            ${story.description}
+          </figcaption>
+        </figure>
+      </article>
+
+      <section id="detail-map"
+               role="region"
+               aria-label="Peta lokasi story"
+               class="max-w-2xl mx-auto mt-6 bg-white rounded-lg shadow overflow-hidden">
+        <div id="map-container" class="w-full h-64"></div>
+      </section>
+    </main>`;
   }
 
   bindBack(handler) {

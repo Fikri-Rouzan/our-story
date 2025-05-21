@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --font-outfit: "Outfit";
+}
+
+* {
+  font-family: var(--font-outfit);
+}

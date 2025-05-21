@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Our Story</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-white shadow fixed inset-x-0 top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+      >
+        <a href="#/" class="text-xl font-bold">Dicoding Story</a>
+        <nav class="hidden md:flex space-x-4">
+          <button
+            id="nav-auth-btn"
+            class="px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
+          ></button>
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="fixed inset-y-0 right-0 w-64 bg-white shadow transform translate-x-full transition-transform"
+      >
+        <div class="p-4 flex justify-end">
+          <button id="mobile-menu-close" class="focus:outline-none">✕</button>
+        </div>
+        <nav class="px-4">
+          <button
+            id="mobile-nav-auth-btn"
+            class="w-full text-left px-3 py-2 rounded-md text-base font-medium focus:outline-none"
+          ></button>
+        </nav>
+      </div>
+    </header>
+
+    <div id="app" class="pt-16"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

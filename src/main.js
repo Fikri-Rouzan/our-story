@@ -9,14 +9,23 @@ import RegisterPresenter from "./presenters/RegisterPresenter.js";
 import LoginPresenter from "./presenters/LoginPresenter.js";
 import HomePresenter from "./presenters/HomePresenter.js";
 import AddStoryPresenter from "./presenters/AddStoryPresenter.js";
+import StoryDetailView from "./views/StoryDetailView.js";
+import StoryDetailPresenter from "./presenters/StoryDetailPresenter.js";
 
 const BASE_URL = "https://story-api.dicoding.dev/v1";
 const app = document.getElementById("app");
 const router = new Router();
 
 router.register("/", () => {
+  const model = new StoryModel(BASE_URL);
   const view = new HomeView(app);
-  new HomePresenter(view, router).init();
+  new HomePresenter(model, view, router).init();
+});
+
+router.register("/story/:id", (params) => {
+  const model = new StoryModel(BASE_URL);
+  const view = new StoryDetailView(app);
+  new StoryDetailPresenter(model, view, router).init(params);
 });
 
 router.register("/register", () => {

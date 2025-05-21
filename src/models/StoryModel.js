@@ -3,6 +3,21 @@ export default class StoryModel {
     this.baseUrl = baseUrl;
   }
 
+  getAllStories(token, page = 1, size = 10, location = 0) {
+    const params = new URLSearchParams({ page, size, location });
+    return fetch(`${this.baseUrl}/stories?${params}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => res.json());
+  }
+
+  getStoryById(id, token) {
+    return fetch(`${this.baseUrl}/stories/${id}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => res.json());
+  }
+
   addStory({ description, photo, lat, lon }, token) {
     const formData = new FormData();
     formData.append("description", description);

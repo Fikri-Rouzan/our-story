@@ -11,7 +11,7 @@ export default class AddStoryView {
 
   render() {
     this.container.innerHTML = `
-    <main id="main-content" role="main" class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
+    <main id="main-content" role="main" class="min-h-[calc(100vh-4rem-4rem)] p-4 overflow-auto">
       <section aria-labelledby="add-story-title"
                class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
         <header>

@@ -5,7 +5,7 @@ export default class StoryDetailView {
 
   render(story) {
     this.container.innerHTML = `
-    <main id="main-content" class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
+    <main id="main-content" class="min-h-[calc(100vh-4rem-4rem)] p-4 overflow-auto">
       <nav aria-label="Navigasi balik" class="mb-4">
         <button id="back-btn" class="text-blue-600 hover:underline">
           ← Kembali

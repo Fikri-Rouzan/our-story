@@ -5,7 +5,7 @@ export default class HomeView {
 
   render(userName, stories = []) {
     this.container.innerHTML = `
-      <div class="min-h-[calc(100vh-4rem)] p-4 overflow-auto">
+      <div class="min-h-[calc(100vh-4rem-4rem)] p-4 overflow-auto">
         <h1 class="text-3xl mb-4">Selamat datang, ${userName}!</h1>
         <div id="map" class="w-full h-64 mb-6 rounded-lg shadow"></div>
         <div id="stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -7,7 +7,7 @@ export default class LoginView {
     return `
     <main id="main-content"
           role="main"
-          class="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4">
+          class="min-h-[calc(100vh-4rem-4rem)] flex items-center justify-center p-4">
       
       <section aria-labelledby="login-heading" class="w-full max-w-md">
         <form id="form-login"

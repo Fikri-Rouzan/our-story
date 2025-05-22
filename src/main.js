@@ -119,3 +119,30 @@ mobileMenuClose.addEventListener("click", closeMobileMenu);
 
 window.addEventListener("load", updateAuthButtons);
 window.addEventListener("hashchange", updateAuthButtons);
+
+if (document.startViewTransition) {
+  document.documentElement.addEventListener("viewtransitionstart", () => {
+    const oldContent = document.querySelector(":view-transition-old(#app)");
+    const newContent = document.querySelector(":view-transition-new(#app)");
+
+    if (oldContent) {
+      oldContent.animate(
+        [
+          { transform: "translateX(0)", opacity: 1 },
+          { transform: "translateX(-30%)", opacity: 0 },
+        ],
+        { duration: 300, easing: "ease-in" }
+      );
+    }
+
+    if (newContent) {
+      newContent.animate(
+        [
+          { transform: "translateX(30%)", opacity: 0 },
+          { transform: "translateX(0)", opacity: 1 },
+        ],
+        { duration: 300, easing: "ease-out", fill: "forwards", delay: 100 }
+      );
+    }
+  });
+}

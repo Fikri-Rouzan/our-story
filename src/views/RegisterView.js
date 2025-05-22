@@ -6,7 +6,7 @@ export default class RegisterView {
   get template() {
     return `
     <main id="main-content" role="main"
-          class="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4">
+          class="min-h-[calc(100vh-4rem-4rem)] flex items-center justify-center p-4">
       <section aria-labelledby="register-title"
                class="w-full max-w-md bg-white p-6 rounded-lg shadow">
         <header>

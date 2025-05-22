@@ -12,29 +12,41 @@ export default class Router {
 
   resolve() {
     const hash = location.hash.slice(1) || "/";
-    const urlSegments = hash.split("/").filter(Boolean);
+    const urlSegs = hash.split("/").filter(Boolean);
 
+    let matched = null;
     for (const route of this.routes) {
       const params = {};
       if (route.path === hash) {
-        return route.callback(params);
+        matched = { callback: route.callback, params };
+        break;
       }
-      if (route.segments.length === urlSegments.length) {
-        let matched = true;
+      if (route.segments.length === urlSegs.length) {
+        let ok = true;
         route.segments.forEach((seg, i) => {
           if (seg.startsWith(":")) {
-            params[seg.slice(1)] = urlSegments[i];
-          } else if (seg !== urlSegments[i]) {
-            matched = false;
+            params[seg.slice(1)] = urlSegs[i];
+          } else if (seg !== urlSegs[i]) {
+            ok = false;
           }
         });
-        if (matched) {
-          return route.callback(params);
+        if (ok) {
+          matched = { callback: route.callback, params };
+          break;
         }
       }
     }
 
-    const home = this.routes.find((r) => r.path === "/");
-    if (home) home.callback({});
+    if (!matched) {
+      const home = this.routes.find((r) => r.path === "/");
+      matched = { callback: home.callback, params: {} };
+    }
+
+    const runRoute = () => matched.callback(matched.params);
+    if (document.startViewTransition) {
+      document.startViewTransition(runRoute);
+    } else {
+      runRoute();
+    }
   }
 }

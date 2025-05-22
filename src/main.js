@@ -20,31 +20,33 @@ const BASE_URL = "https://story-api.dicoding.dev/v1";
 const app = document.getElementById("app");
 const router = new Router();
 
-router.register("/", () => {
-  const model = new StoryModel(BASE_URL);
-  const view = new HomeView(app);
-  new HomePresenter(model, view, router).init();
-});
-router.register("/register", () => {
-  const model = new AuthModel(BASE_URL);
-  const view = new RegisterView(app);
-  new RegisterPresenter(model, view, router).init();
-});
-router.register("/login", () => {
-  const model = new AuthModel(BASE_URL);
-  const view = new LoginView(app);
-  new LoginPresenter(model, view, router).init();
-});
-router.register("/add-story", () => {
-  const model = new StoryModel(BASE_URL);
-  const view = new AddStoryView(app);
-  new AddStoryPresenter(model, view, router).init();
-});
-router.register("/story/:id", (params) => {
-  const model = new StoryModel(BASE_URL);
-  const view = new StoryDetailView(app);
-  new StoryDetailPresenter(model, view, router).init(params);
-});
+router.register("/", () =>
+  new HomePresenter(new StoryModel(BASE_URL), new HomeView(app), router).init()
+);
+router.register("/register", () =>
+  new RegisterPresenter(
+    new AuthModel(BASE_URL),
+    new RegisterView(app),
+    router
+  ).init()
+);
+router.register("/login", () =>
+  new LoginPresenter(new AuthModel(BASE_URL), new LoginView(app), router).init()
+);
+router.register("/add-story", () =>
+  new AddStoryPresenter(
+    new StoryModel(BASE_URL),
+    new AddStoryView(app),
+    router
+  ).init()
+);
+router.register("/story/:id", (p) =>
+  new StoryDetailPresenter(
+    new StoryModel(BASE_URL),
+    new StoryDetailView(app),
+    router
+  ).init(p)
+);
 
 const navHomeBtn = document.getElementById("nav-home-btn");
 const navAddBtn = document.getElementById("nav-add-story-btn");
@@ -58,7 +60,21 @@ const mobileAuthBtn = document.getElementById("mobile-nav-auth-btn");
 
 const notifModel = new NotificationModel(BASE_URL);
 const notifView = new NotificationView(navNotifBtn, mobileNotifBtn);
+
+function updateNotifButtons(subscribed) {
+  const icon = subscribed ? "fa-bell-slash" : "fa-bell";
+  const text = subscribed ? "Disable Notifications" : "Enable Notifications";
+  const html = `<i class="fas ${icon}"></i><span class="ml-2">${text}</span>`;
+  navNotifBtn.innerHTML = html;
+  mobileNotifBtn.innerHTML = html;
+}
+
+notifView.setSubscribed = (isSubscribed) => {
+  updateNotifButtons(isSubscribed);
+};
+
 new NotificationPresenter(notifModel, notifView).init();
+updateNotifButtons(false);
 
 navHomeBtn.addEventListener("click", () => {
   location.hash = "/";
@@ -79,19 +95,21 @@ mobileAddBtn.addEventListener("click", () => {
 function updateAuthButtons() {
   const token = localStorage.getItem("token");
   if (token) {
-    navAuthBtn.textContent = "Logout";
+    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Logout</span>`;
+    navAuthBtn.innerHTML = html;
+    mobileAuthBtn.innerHTML = html;
     navAuthBtn.onclick = handleLogout;
-    mobileAuthBtn.textContent = "Logout";
     mobileAuthBtn.onclick = () => {
       handleLogout();
       closeMobileMenu();
     };
   } else {
-    navAuthBtn.textContent = "Login";
+    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Login</span>`;
+    navAuthBtn.innerHTML = html;
+    mobileAuthBtn.innerHTML = html;
     navAuthBtn.onclick = () => {
       location.hash = "/login";
     };
-    mobileAuthBtn.textContent = "Login";
     mobileAuthBtn.onclick = () => {
       location.hash = "/login";
       closeMobileMenu();
@@ -117,6 +135,11 @@ function closeMobileMenu() {
 mobileMenuBtn.addEventListener("click", openMobileMenu);
 mobileMenuClose.addEventListener("click", closeMobileMenu);
 
+const mdBreakpoint = 768;
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= mdBreakpoint) closeMobileMenu();
+});
+
 window.addEventListener("load", updateAuthButtons);
 window.addEventListener("hashchange", updateAuthButtons);
 
@@ -124,8 +147,7 @@ if (document.startViewTransition) {
   document.documentElement.addEventListener("viewtransitionstart", () => {
     const oldContent = document.querySelector(":view-transition-old(#app)");
     const newContent = document.querySelector(":view-transition-new(#app)");
-
-    if (oldContent) {
+    if (oldContent)
       oldContent.animate(
         [
           { transform: "translateX(0)", opacity: 1 },
@@ -133,9 +155,7 @@ if (document.startViewTransition) {
         ],
         { duration: 300, easing: "ease-in" }
       );
-    }
-
-    if (newContent) {
+    if (newContent)
       newContent.animate(
         [
           { transform: "translateX(30%)", opacity: 0 },
@@ -143,6 +163,5 @@ if (document.startViewTransition) {
         ],
         { duration: 300, easing: "ease-out", fill: "forwards", delay: 100 }
       );
-    }
   });
 }

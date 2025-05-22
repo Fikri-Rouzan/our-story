@@ -2,6 +2,8 @@
 
 @theme {
   --font-outfit: "Outfit";
+  --color-primary: #8f87f1;
+  --color-secondary: #7a70ee;
 }
 
 * {

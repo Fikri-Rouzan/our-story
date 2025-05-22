@@ -28,11 +28,36 @@ export default class StoryDetailPresenter {
   _initMap(story) {
     if (story.lat == null || story.lon == null) return;
 
-    const map = L.map("map-container").setView([story.lat, story.lon], 13);
+    const apiKey = import.meta.env.VITE_MAPTILER_API_KEY;
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+    const osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution: "&copy; OpenStreetMap contributors",
+      }
+    );
+    const streets = L.tileLayer(
+      `https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
+    );
+    const satellite = L.tileLayer(
+      `https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
+    );
+
+    const map = L.map("map-container", {
+      center: [story.lat, story.lon],
+      zoom: 13,
+      layers: [osm],
+    });
+
+    L.control
+      .layers({
+        OpenStreetMap: osm,
+        MapTiler: streets,
+        Satellite: satellite,
+      })
+      .addTo(map);
 
     const marker = L.marker([story.lat, story.lon]).addTo(map);
     marker

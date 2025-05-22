@@ -46,16 +46,38 @@ export default class HomePresenter {
   }
 
   _initMap(stories) {
-    const withLoc = stories.filter((s) => s.lat != null && s.lon != null);
-    const map = L.map("map").setView(
-      withLoc.length ? [withLoc[0].lat, withLoc[0].lon] : [0, 0],
-      withLoc.length ? 5 : 2
+    const apiKey = import.meta.env.VITE_MAPTILER_API_KEY;
+
+    const osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution: "&copy; OpenStreetMap contributors",
+      }
+    );
+    const streets = L.tileLayer(
+      `https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
+    );
+    const satellite = L.tileLayer(
+      `https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
     );
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+    const map = L.map("map", {
+      center: [0, 0],
+      zoom: 2,
+      layers: [osm],
+    });
 
+    L.control
+      .layers({
+        OpenStreetMap: osm,
+        MapTiler: streets,
+        Satellite: satellite,
+      })
+      .addTo(map);
+
+    const withLoc = stories.filter((s) => s.lat != null && s.lon != null);
     const bounds = [];
 
     withLoc.forEach((s) => {

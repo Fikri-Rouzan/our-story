@@ -66,13 +66,19 @@ export default class HomePresenter {
     const map = L.map("map", {
       center: [0, 0],
       zoom: 2,
-      layers: [osm],
+      layers: [streets],
+      maxBounds: [
+        [-85, -360],
+        [85, 360],
+      ],
+      maxBoundsViscosity: 1.0,
+      worldCopyJump: true,
     });
 
     L.control
       .layers({
-        OpenStreetMap: osm,
         MapTiler: streets,
+        OpenStreetMap: osm,
         Satellite: satellite,
       })
       .addTo(map);

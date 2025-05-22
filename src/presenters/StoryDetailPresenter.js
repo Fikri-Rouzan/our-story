@@ -48,13 +48,19 @@ export default class StoryDetailPresenter {
     const map = L.map("map-container", {
       center: [story.lat, story.lon],
       zoom: 13,
-      layers: [osm],
+      layers: [streets],
+      maxBounds: [
+        [-85, -360],
+        [85, 360],
+      ],
+      maxBoundsViscosity: 1.0,
+      worldCopyJump: true,
     });
 
     L.control
       .layers({
-        OpenStreetMap: osm,
         MapTiler: streets,
+        OpenStreetMap: osm,
         Satellite: satellite,
       })
       .addTo(map);

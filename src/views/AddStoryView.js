@@ -161,10 +161,42 @@ export default class AddStoryView {
   }
 
   initMap() {
-    this.map = L.map("map-add").setView([0, 0], 2);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(this.map);
+    const apiKey = import.meta.env.VITE_MAPTILER_API_KEY;
+
+    const osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution: "&copy; OpenStreetMap contributors",
+      }
+    );
+    const streets = L.tileLayer(
+      `https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
+    );
+    const satellite = L.tileLayer(
+      `https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=${apiKey}`,
+      { attribution: "&copy; MapTiler & OpenStreetMap contributors" }
+    );
+
+    this.map = L.map("map-add", {
+      center: [0, 0],
+      zoom: 2,
+      layers: [streets],
+      maxBounds: [
+        [-85, -360],
+        [85, 360],
+      ],
+      maxBoundsViscosity: 1.0,
+      worldCopyJump: true,
+    });
+
+    L.control
+      .layers({
+        MapTiler: streets,
+        OpenStreetMap: osm,
+        Satellite: satellite,
+      })
+      .addTo(this.map);
 
     this.map.on("click", (e) => {
       const { lat, lng } = e.latlng;

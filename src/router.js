@@ -1,7 +1,9 @@
 export default class Router {
   constructor() {
     this.routes = [];
+
     window.addEventListener("hashchange", () => this.resolve());
+
     window.addEventListener("load", () => this.resolve());
   }
 
@@ -15,12 +17,15 @@ export default class Router {
     const urlSegs = hash.split("/").filter(Boolean);
 
     let matched = null;
+
     for (const route of this.routes) {
       const params = {};
+
       if (route.path === hash) {
         matched = { callback: route.callback, params };
         break;
       }
+
       if (route.segments.length === urlSegs.length) {
         let ok = true;
         route.segments.forEach((seg, i) => {
@@ -30,6 +35,7 @@ export default class Router {
             ok = false;
           }
         });
+
         if (ok) {
           matched = { callback: route.callback, params };
           break;
@@ -43,6 +49,7 @@ export default class Router {
     }
 
     const runRoute = () => matched.callback(matched.params);
+
     if (document.startViewTransition) {
       document.startViewTransition(runRoute);
     } else {

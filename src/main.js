@@ -63,7 +63,9 @@ const notifView = new NotificationView(navNotifBtn, mobileNotifBtn);
 
 function updateNotifButtons(subscribed) {
   const icon = subscribed ? "fa-bell-slash" : "fa-bell";
-  const text = subscribed ? "Disable Notifications" : "Enable Notifications";
+  const text = subscribed
+    ? "Unsubscribe Notifications"
+    : "Subscribe Notifications";
   const html = `<i class="fas ${icon}"></i><span class="ml-2">${text}</span>`;
   navNotifBtn.innerHTML = html;
   mobileNotifBtn.innerHTML = html;

@@ -4,17 +4,19 @@ export default class NotificationModel {
   }
 
   subscribe(subscription, token) {
+    const payload = {
+      endpoint: subscription.endpoint,
+      keys: subscription.toJSON().keys,
+    };
+
     return fetch(`${this.baseUrl}/notifications/subscribe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        endpoint: subscription.endpoint,
-        keys: subscription.toJSON().keys,
-      }),
-    }).then((res) => res.json());
+      body: JSON.stringify(payload),
+    }).then((response) => response.json());
   }
 
   unsubscribe(endpoint, token) {
@@ -25,6 +27,6 @@ export default class NotificationModel {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ endpoint }),
-    }).then((res) => res.json());
+    }).then((response) => response.json());
   }
 }

@@ -5,6 +5,7 @@ export default class StoryModel {
 
   getAllStories(token, page = 1, size = 10, location = 0) {
     const params = new URLSearchParams({ page, size, location });
+
     return fetch(`${this.baseUrl}/stories?${params}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },

@@ -1,7 +1,12 @@
 self.addEventListener("push", (event) => {
-  let data = { title: "Notifikasi", options: { body: "Ada notifikasi baru" } };
-  if (event.data) {
-    data = event.data.json();
-  }
-  event.waitUntil(self.registration.showNotification(data.title, data.options));
+  const defaultPayload = {
+    title: "Notification",
+    options: {
+      body: "You have a new notification",
+    },
+  };
+
+  const { title, options } = event.data ? event.data.json() : defaultPayload;
+
+  event.waitUntil(self.registration.showNotification(title, options));
 });

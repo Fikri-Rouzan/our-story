@@ -34,7 +34,7 @@ export default class HomePresenter {
           this.view.render(name, []);
           this._initMap([]);
           this._bindClicks();
-          alert("Terjadi kesalahan jaringan.");
+          alert("A network error occurred.");
         });
     }
   }
@@ -86,31 +86,46 @@ export default class HomePresenter {
     const withLoc = stories.filter((s) => s.lat != null && s.lon != null);
     const bounds = [];
 
-    withLoc.forEach((s) => {
-      const marker = L.marker([s.lat, s.lon]).addTo(map);
+    withLoc.forEach((story) => {
+      const marker = L.marker([story.lat, story.lon]).addTo(map);
 
       const popupContent = `
-      <div style="text-align:center; max-width:200px;">
-        <strong>${s.name}</strong>
-        <img 
-          src="${s.photoUrl}" 
-          alt="${s.description}" 
-          style="width:100px; height:100px; object-fit:cover; margin:8px auto; border-radius:4px;"
-        />
-        <p style="margin:4px 0; font-size:0.9rem;">${s.description}</p>
-        <p style="margin:4px 0; font-size:0.8rem; color:#555;">
-          ${new Date(s.createdAt).toLocaleString()}
-        </p>
-        <a 
-          href="#/story/${s.id}" 
-          style="display:inline-block; margin-top:6px; font-size:0.9rem; color:#1D4ED8; text-decoration:underline;"
-        >
-          View Detail
-        </a>
-      </div>`;
+        <div class="max-w-40">
+          <!-- Story author -->
+          <strong class="block font-semibold text-sm">
+            ${story.name}
+          </strong>
+
+          <!-- Story date -->
+          <p class="text-xs text-gray-500">
+            ${new Date(story.createdAt).toLocaleString()}
+          </p>
+
+          <!-- Story image -->
+          <img
+            src="${story.photoUrl}"
+            alt="${story.description}"
+            class="w-28 h-28 object-cover rounded-lg mx-auto"
+          />
+
+          <!-- Story description -->
+          <p class="text-sm text-justify text-gray-700 line-clamp-2">
+            ${story.description}
+          </p>
+
+          <!-- View Details -->
+          <a
+            href="#/story/${story.id}"
+            class="inline-block text-sm text-primary underline hover:text-secondary"
+          >
+            View Details
+          </a>
+        </div>
+      `;
 
       marker.bindPopup(popupContent);
-      bounds.push([s.lat, s.lon]);
+
+      bounds.push([story.lat, story.lon]);
     });
 
     if (bounds.length) {

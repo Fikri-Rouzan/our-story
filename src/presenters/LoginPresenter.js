@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export default class LoginPresenter {
   constructor(model, view, router) {
     this.model = model;
@@ -7,6 +9,7 @@ export default class LoginPresenter {
 
   init() {
     this.view.render();
+    this.view.bindTogglePassword();
     this.view.bindSubmit(this.handleLogin.bind(this));
   }
 
@@ -17,11 +20,30 @@ export default class LoginPresenter {
         if (!res.error) {
           localStorage.setItem("token", res.loginResult.token);
           localStorage.setItem("name", res.loginResult.name);
-          location.hash = "/home";
+
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: `Welcome back, ${res.loginResult.name}!`,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            location.hash = "/";
+          });
         } else {
-          this.view.showMessage(res.message);
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: res.message,
+          });
         }
       })
-      .catch(() => this.view.showMessage("Terjadi kesalahan jaringan."));
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error",
+          text: "A network error occurred. Please try again",
+        });
+      });
   }
 }

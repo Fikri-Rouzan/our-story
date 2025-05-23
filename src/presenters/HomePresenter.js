@@ -1,4 +1,5 @@
 import L from "leaflet";
+import Swal from "sweetalert2";
 
 export default class HomePresenter {
   constructor(model, view, router) {
@@ -27,14 +28,22 @@ export default class HomePresenter {
             this.view.render(name, []);
             this._initMap([]);
             this._bindClicks();
-            alert(res.message);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: res.message,
+            });
           }
         })
         .catch(() => {
           this.view.render(name, []);
           this._initMap([]);
           this._bindClicks();
-          alert("A network error occurred.");
+          Swal.fire({
+            icon: "error",
+            title: "Network Error",
+            text: "A network error occurred",
+          });
         });
     }
   }

@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export default class RegisterPresenter {
   constructor(model, view, router) {
     this.model = model;
@@ -7,6 +9,7 @@ export default class RegisterPresenter {
 
   init() {
     this.view.render();
+    this.view.bindTogglePassword();
     this.view.bindSubmit(this.handleRegister.bind(this));
   }
 
@@ -15,12 +18,28 @@ export default class RegisterPresenter {
       .register(data)
       .then((res) => {
         if (!res.error) {
-          this.view.showMessage("Register berhasil! Silakan login.");
-          location.hash = "/login";
+          Swal.fire({
+            icon: "success",
+            title: "Registration Successful!",
+            text: "Please sign in to continue",
+            confirmButtonText: "OK",
+          }).then(() => {
+            location.hash = "/login";
+          });
         } else {
-          this.view.showMessage(res.message);
+          Swal.fire({
+            icon: "error",
+            title: "Registration Failed",
+            text: res.message,
+          });
         }
       })
-      .catch(() => this.view.showMessage("Terjadi kesalahan jaringan."));
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error Occurred",
+          text: "Check your internet connection and try again",
+        });
+      });
   }
 }

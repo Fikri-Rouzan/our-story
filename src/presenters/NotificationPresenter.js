@@ -55,8 +55,8 @@ export default class NotificationPresenter {
     if (!token) {
       await Swal.fire({
         icon: "warning",
-        title: "Please Log In",
-        text: "You must log in first to manage notifications",
+        title: "Please Login",
+        text: "You must login first to manage notifications",
       });
       return;
     }
@@ -73,13 +73,13 @@ export default class NotificationPresenter {
 
           await Swal.fire({
             icon: "success",
-            title: "Unsubscribed",
-            text: "You have successfully unsubscribed from notifications",
+            title: "Notifications Disabled",
+            text: "You're all set! No more notifications",
           });
         } else {
           await Swal.fire({
             icon: "error",
-            title: "Unsubscribe Failed",
+            title: "Oops! Action Failed",
             text: res.message,
           });
         }
@@ -106,13 +106,13 @@ export default class NotificationPresenter {
           this.view.setSubscribed(true);
           await Swal.fire({
             icon: "success",
-            title: "Subscribed Successfully",
-            text: "You have successfully subscribed to notifications",
+            title: "Notifications Enabled",
+            text: "Great! You'll now get notifications",
           });
         } else {
           await Swal.fire({
             icon: "error",
-            title: "Subscription Failed",
+            title: "Oops! Action Failed",
             text: res.message,
           });
         }

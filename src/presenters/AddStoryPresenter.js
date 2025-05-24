@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export default class AddStoryPresenter {
   constructor(model, view, router) {
     this.model = model;
@@ -7,6 +9,9 @@ export default class AddStoryPresenter {
 
   init() {
     this.view.render();
+    this.view.bindBack(() => {
+      location.hash = "/";
+    });
     this.view._initElements();
     this.view.bindUIActions();
     this.view.initMap();
@@ -15,12 +20,14 @@ export default class AddStoryPresenter {
 
   _handleSubmit({ description, photo, lat, lon }) {
     const token = localStorage.getItem("token");
+
     const payload = {
       description,
       photo,
       lat: lat || undefined,
       lon: lon || undefined,
     };
+
     const action = token
       ? this.model.addStory(payload, token)
       : this.model.addStoryGuest(payload);
@@ -28,12 +35,28 @@ export default class AddStoryPresenter {
     action
       .then((res) => {
         if (!res.error) {
-          alert("Story berhasil ditambahkan.");
-          location.hash = "/";
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Story added successfully",
+            confirmButtonText: "OK",
+          }).then(() => {
+            location.hash = "/";
+          });
         } else {
-          alert(res.message);
+          Swal.fire({
+            icon: "error",
+            title: "Failed",
+            text: res.message,
+          });
         }
       })
-      .catch(() => alert("Terjadi kesalahan jaringan."));
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error",
+          text: "A network error occurred. Please try again",
+        });
+      });
   }
 }

@@ -10,7 +10,7 @@ export default class HomeView {
         <h1 class="text-3xl text-primary font-bold mb-6">Welcome, ${userName}!</h1>
 
         <!-- Map -->
-        <div id="map" class="w-full h-80 mb-8 rounded-lg shadow"></div>
+        <div id="map" class="w-full h-64 mb-8 rounded-lg shadow"></div>
 
         <!-- Stories -->
         <div

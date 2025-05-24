@@ -63,9 +63,7 @@ const notifView = new NotificationView(navNotifBtn, mobileNotifBtn);
 
 function updateNotifButtons(subscribed) {
   const icon = subscribed ? "fa-bell-slash" : "fa-bell";
-  const text = subscribed
-    ? "Unsubscribe Notifications"
-    : "Subscribe Notifications";
+  const text = subscribed ? "Disable Notifications" : "Enable Notifications";
   const html = `<i class="fas ${icon}"></i><span class="ml-2">${text}</span>`;
   navNotifBtn.innerHTML = html;
   mobileNotifBtn.innerHTML = html;
@@ -97,7 +95,7 @@ mobileAddBtn.addEventListener("click", () => {
 function updateAuthButtons() {
   const token = localStorage.getItem("token");
   if (token) {
-    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Logout</span>`;
+    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Sign Out</span>`;
     navAuthBtn.innerHTML = html;
     mobileAuthBtn.innerHTML = html;
     navAuthBtn.onclick = handleLogout;
@@ -106,7 +104,7 @@ function updateAuthButtons() {
       closeMobileMenu();
     };
   } else {
-    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Login</span>`;
+    const html = `<i class="fas fa-right-from-bracket"></i><span class="ml-2">Sign In</span>`;
     navAuthBtn.innerHTML = html;
     mobileAuthBtn.innerHTML = html;
     navAuthBtn.onclick = () => {

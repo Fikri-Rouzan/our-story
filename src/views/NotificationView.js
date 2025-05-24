@@ -6,8 +6,8 @@ export default class NotificationView {
 
   setSubscribed(isSubscribed) {
     const text = isSubscribed
-      ? "Unsubscribe Notifications"
-      : "Subscribe Notifications";
+      ? "Disable Notifications"
+      : "Enable Notifications";
 
     this.navBtn.textContent = text;
     this.mobileBtn.textContent = text;

@@ -11,8 +11,8 @@ export default class LoginView {
           
           <!-- Left panel -->
           <div class="md:w-1/2 bg-primary p-8 flex flex-col items-center justify-center text-white">
-            <h2 class="text-4xl font-bold mb-2">Good to see you again!</h2>
-            <p class="text-lg">Sign in to continue</p>
+            <h2 class="text-4xl font-bold mb-2 text-center">Good to see you again!</h2>
+            <p class="text-lg text-center">Sign in to continue</p>
           </div>
 
           <!-- Right panel -->

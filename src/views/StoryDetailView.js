@@ -62,7 +62,7 @@ export default class StoryDetailView {
             class="bg-white rounded-lg shadow overflow-hidden"
           >
             <h2 class="sr-only">Location Map</h2>
-            <div id="map-container" class="w-full h-80"></div>
+            <div id="map-container" class="w-full h-64"></div>
           </section>
         </div>
       </main>

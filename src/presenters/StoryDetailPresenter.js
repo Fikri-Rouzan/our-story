@@ -1,4 +1,5 @@
 import L from "leaflet";
+import Swal from "sweetalert2";
 
 export default class StoryDetailPresenter {
   constructor(model, view, router) {
@@ -9,6 +10,7 @@ export default class StoryDetailPresenter {
 
   init({ id }) {
     const token = localStorage.getItem("token");
+
     this.model
       .getStoryById(id, token)
       .then((res) => {
@@ -19,10 +21,20 @@ export default class StoryDetailPresenter {
           });
           this._initMap(res.story);
         } else {
-          this.view.showError(res.message);
+          Swal.fire({
+            icon: "error",
+            title: "Failed to Load Story",
+            text: res.message,
+          });
         }
       })
-      .catch(() => this.view.showError("Terjadi kesalahan jaringan."));
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error",
+          text: "Unable to load story details. Please try again later",
+        });
+      });
   }
 
   _initMap(story) {
@@ -66,14 +78,17 @@ export default class StoryDetailPresenter {
       .addTo(map);
 
     const marker = L.marker([story.lat, story.lon]).addTo(map);
-    marker
-      .bindPopup(
-        `
-      <strong>${story.name}</strong><br/>
-      ${story.description}<br/>
-      <em>${new Date(story.createdAt).toLocaleString()}</em>
-    `
-      )
-      .openPopup();
+
+    const popupContent = `
+      <strong class="block font-semibold text-sm">${story.name}</strong>
+      <p class="text-xs text-gray-500">
+        ${new Date(story.createdAt).toLocaleString()}
+      </p>
+      <p class="text-sm text-justify text-gray-700 line-clamp-2">
+        ${story.description}
+      </p>
+    `;
+
+    marker.bindPopup(popupContent).openPopup();
   }
 }

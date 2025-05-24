@@ -5,52 +5,73 @@ export default class StoryDetailView {
 
   render(story) {
     this.container.innerHTML = `
-    <main id="main-content" class="min-h-[calc(100vh-4rem-4rem)] p-4 overflow-auto">
-      <nav aria-label="Navigasi balik" class="mb-4">
-        <button id="back-btn" class="text-blue-600 hover:underline">
-          ← Kembali
-        </button>
-      </nav>
+      <main id="main-content" class="min-h-[calc(100vh-4rem-4rem)] py-6 overflow-auto bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 space-y-6">
 
-      <article class="max-w-2xl mx-auto bg-white rounded-lg shadow overflow-hidden">
-        <header class="p-6 space-y-2">
-          <h1 class="text-2xl font-medium">${story.name}</h1>
-          <time datetime="${story.createdAt}" class="text-gray-500 block">
-            ${new Date(story.createdAt).toLocaleString()}
-          </time>
-        </header>
+          <!-- Back Button -->
+          <nav aria-label="Back navigation">
+            <button
+              id="back-btn"
+              class="inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition cursor-pointer"
+            >
+              <i class="fas fa-arrow-left mr-2"></i>
+              Back
+            </button>
+          </nav>
 
-        <figure>
-          <img
-            src="${story.photoUrl}"
-            alt="Foto story oleh ${story.name}: ${story.description}"
-            class="w-full h-64 object-cover"
-          />
-          <figcaption class="p-6 text-gray-700">
-            ${story.description}
-          </figcaption>
-        </figure>
-      </article>
+          <!-- Story Card -->
+          <article class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="md:flex">
+              
+              <!-- Story Image -->
+              <div class="md:w-1/2">
+                <img
+                  src="${story.photoUrl}"
+                  alt="Story photo by ${story.name}"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div class="md:w-1/2 p-6 flex flex-col">
+                <!-- Story author -->
+                <h1 class="text-3xl font-bold flex items-center mb-2">
+                  <i class="fas fa-user mr-2 text-gray-600"></i>
+                  ${story.name}
+                </h1>
+                
+                <!-- Story date -->
+                <div class="flex items-center text-gray-500 mb-6 space-x-2">
+                  <i class="fas fa-calendar-alt"></i>
+                  <time datetime="${story.createdAt}">
+                    ${new Date(story.createdAt).toLocaleString()}
+                  </time>
+                </div>
+                
+                <!-- Story description -->
+                <p class="text-gray-700 flex-1">
+                  ${story.description}
+                </p>
+              </div>
+            </div>
+          </article>
 
-      <section id="detail-map"
-               role="region"
-               aria-label="Peta lokasi story"
-               class="max-w-2xl mx-auto mt-6 bg-white rounded-lg shadow overflow-hidden">
-        <div id="map-container" class="w-full h-64"></div>
-      </section>
-    </main>`;
+          <!-- Map -->
+          <section
+            role="region"
+            aria-label="Story location map"
+            class="bg-white rounded-lg shadow overflow-hidden"
+          >
+            <h2 class="sr-only">Location Map</h2>
+            <div id="map-container" class="w-full h-80"></div>
+          </section>
+        </div>
+      </main>
+    `;
   }
 
   bindBack(handler) {
     this.container
       .querySelector("#back-btn")
-      .addEventListener("click", handler);
-  }
-
-  showError(msg) {
-    this.container.innerHTML = `
-      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4">
-        <p class="text-red-500">${msg}</p>
-      </div>`;
+      ?.addEventListener("click", handler);
   }
 }

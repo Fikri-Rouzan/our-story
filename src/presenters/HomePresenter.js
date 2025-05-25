@@ -30,7 +30,7 @@ export default class HomePresenter {
             this._bindClicks();
             Swal.fire({
               icon: "error",
-              title: "Oops...",
+              title: "Something Went Wrong",
               text: res.message,
             });
           }
@@ -42,7 +42,7 @@ export default class HomePresenter {
           Swal.fire({
             icon: "error",
             title: "Network Error",
-            text: "A network error occurred",
+            text: "Please try again later",
           });
         });
     }

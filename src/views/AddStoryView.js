@@ -253,8 +253,8 @@ export default class AddStoryView {
       .catch(() => {
         Swal.fire({
           icon: "error",
-          title: "Gagal Akses Kamera",
-          text: "Tidak dapat mengakses kamera. Pastikan izin telah diberikan dan perangkat memiliki kamera.",
+          title: "Unable to Access Camera",
+          text: "Cannot access the camera. Please make sure permission has been granted and that your device has a camera",
         });
       });
   }

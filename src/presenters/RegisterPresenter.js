@@ -20,16 +20,16 @@ export default class RegisterPresenter {
         if (!res.error) {
           Swal.fire({
             icon: "success",
-            title: "Registration Successful!",
-            text: "Please sign in to continue",
-            confirmButtonText: "OK",
+            title: "Sign Up Successful!",
+            text: "Your account has been created. Please sign in to continue",
+            confirmButtonText: "Sign In",
           }).then(() => {
             location.hash = "/login";
           });
         } else {
           Swal.fire({
             icon: "error",
-            title: "Registration Failed",
+            title: "Sign Up Failed",
             text: res.message,
           });
         }
@@ -37,8 +37,8 @@ export default class RegisterPresenter {
       .catch(() => {
         Swal.fire({
           icon: "error",
-          title: "Network Error Occurred",
-          text: "Check your internet connection and try again",
+          title: "Network Error",
+          text: "Please check your internet connection and try again",
         });
       });
   }

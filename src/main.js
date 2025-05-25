@@ -1,4 +1,14 @@
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import Swal from "sweetalert2";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconUrl: "/assets/marker-icon-violet.png",
+  iconRetinaUrl: "/assets/marker-icon-2x-violet.png",
+  shadowUrl: "/assets/marker-shadow.png",
+});
 
 import Router from "./router.js";
 import AuthModel from "./models/AuthModel.js";
@@ -140,9 +150,26 @@ function updateAuthButtons() {
 }
 
 function handleLogout() {
-  localStorage.clear();
-  location.hash = "/";
-  updateAuthButtons();
+  Swal.fire({
+    title: "Are You Sure You Want to Sign Out?",
+    text: "You'll be signed out of your account",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sign Out",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.clear();
+      location.hash = "/";
+      updateAuthButtons();
+      Swal.fire({
+        icon: "success",
+        title: "You Have Successfully Signed Out",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  });
 }
 
 // Mobile menu toggle controls

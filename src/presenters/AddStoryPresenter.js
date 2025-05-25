@@ -37,8 +37,8 @@ export default class AddStoryPresenter {
         if (!res.error) {
           Swal.fire({
             icon: "success",
-            title: "Success",
-            text: "Story added successfully",
+            title: "Story Added!",
+            text: "Your story has been added",
             confirmButtonText: "OK",
           }).then(() => {
             location.hash = "/";
@@ -46,7 +46,7 @@ export default class AddStoryPresenter {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Failed",
+            title: "Something Went Wrong",
             text: res.message,
           });
         }
@@ -55,7 +55,7 @@ export default class AddStoryPresenter {
         Swal.fire({
           icon: "error",
           title: "Network Error",
-          text: "A network error occurred. Please try again",
+          text: "Please try again later",
         });
       });
   }

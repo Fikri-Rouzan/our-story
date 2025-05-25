@@ -23,7 +23,7 @@ export default class LoginPresenter {
 
           Swal.fire({
             icon: "success",
-            title: "Login Successful",
+            title: "Sign In Successful!",
             text: `Welcome back, ${res.loginResult.name}!`,
             showConfirmButton: false,
             timer: 1500,
@@ -33,7 +33,7 @@ export default class LoginPresenter {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Login Failed",
+            title: "Sign In Failed",
             text: res.message,
           });
         }
@@ -42,7 +42,7 @@ export default class LoginPresenter {
         Swal.fire({
           icon: "error",
           title: "Network Error",
-          text: "A network error occurred. Please try again",
+          text: "Please try again later",
         });
       });
   }

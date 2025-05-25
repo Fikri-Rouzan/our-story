@@ -23,7 +23,7 @@ export default class StoryDetailPresenter {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Failed to Load Story",
+            title: "Couldn't Load Story",
             text: res.message,
           });
         }
@@ -32,7 +32,7 @@ export default class StoryDetailPresenter {
         Swal.fire({
           icon: "error",
           title: "Network Error",
-          text: "Unable to load story details. Please try again later",
+          text: "Please try again later",
         });
       });
   }

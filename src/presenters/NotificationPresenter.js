@@ -28,8 +28,8 @@ export default class NotificationPresenter {
     if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
       await Swal.fire({
         icon: "error",
-        title: "Not Supported",
-        text: "This browser does not support Push Notifications",
+        title: "Push Notifications Not Supported",
+        text: "Your browser doesn’t support push notifications. Please update or try a different browser",
       });
       return;
     }
@@ -43,8 +43,8 @@ export default class NotificationPresenter {
     } catch {
       await Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Failed to register service worker",
+        title: "Service Worker Registration Failed",
+        text: "We couldn’t register the service worker. Please refresh the page and try again",
       });
     }
   }
@@ -55,8 +55,8 @@ export default class NotificationPresenter {
     if (!token) {
       await Swal.fire({
         icon: "warning",
-        title: "Please Login",
-        text: "You must login first to manage notifications",
+        title: "Sign In Required",
+        text: "Please sign in to manage your notifications",
       });
       return;
     }
@@ -73,13 +73,13 @@ export default class NotificationPresenter {
 
           await Swal.fire({
             icon: "success",
-            title: "Notifications Disabled",
-            text: "You're all set! No more notifications",
+            title: "Notifications Disabled!",
+            text: "You won’t receive notifications anymore",
           });
         } else {
           await Swal.fire({
             icon: "error",
-            title: "Oops! Action Failed",
+            title: "Something Went Wrong",
             text: res.message,
           });
         }
@@ -89,8 +89,8 @@ export default class NotificationPresenter {
         if (permission !== "granted") {
           await Swal.fire({
             icon: "error",
-            title: "Permission Denied",
-            text: "You denied notification permission",
+            title: "Notifications Permission Denied",
+            text: "You have blocked notifications. To stay updated, please enable notifications in your browser or system settings",
           });
           return;
         }
@@ -106,13 +106,13 @@ export default class NotificationPresenter {
           this.view.setSubscribed(true);
           await Swal.fire({
             icon: "success",
-            title: "Notifications Enabled",
-            text: "Great! You'll now get notifications",
+            title: "Notifications Enabled!",
+            text: "You’ll now receive notifications",
           });
         } else {
           await Swal.fire({
             icon: "error",
-            title: "Oops! Action Failed",
+            title: "Something Went Wrong",
             text: res.message,
           });
         }
@@ -121,7 +121,7 @@ export default class NotificationPresenter {
       await Swal.fire({
         icon: "error",
         title: "Network Error",
-        text: "A network error occurred. Please try again",
+        text: "Please try again later",
       });
     }
   }

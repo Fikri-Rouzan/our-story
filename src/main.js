@@ -28,6 +28,7 @@ import HomePresenter from "./presenters/HomePresenter.js";
 import StoryDetailPresenter from "./presenters/StoryDetailPresenter.js";
 import AddStoryPresenter from "./presenters/AddStoryPresenter.js";
 import NotificationPresenter from "./presenters/NotificationPresenter.js";
+import NotFoundPresenter from "./presenters/NotFoundPresenter.js";
 
 const BASE_URL = "https://story-api.dicoding.dev/v1";
 
@@ -71,6 +72,11 @@ router.register("/story/:id", (p) =>
     router
   ).init(p)
 );
+
+// Not found page
+router.register("*", () => {
+  new NotFoundPresenter(app).init();
+});
 
 const navHomeBtn = document.getElementById("nav-home-btn");
 const navAddBtn = document.getElementById("nav-add-story-btn");

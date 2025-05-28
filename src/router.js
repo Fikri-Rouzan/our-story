@@ -44,8 +44,15 @@ export default class Router {
     }
 
     if (!matched) {
-      const home = this.routes.find((r) => r.path === "/");
-      matched = { callback: home.callback, params: {} };
+      const notFound = this.routes.find((r) => r.path === "*");
+
+      if (notFound) {
+        matched = { callback: notFound.callback, params: {} };
+      } else {
+        const home = this.routes.find((r) => r.path === "/");
+
+        matched = { callback: home.callback, params: {} };
+      }
     }
 
     const runRoute = () => matched.callback(matched.params);

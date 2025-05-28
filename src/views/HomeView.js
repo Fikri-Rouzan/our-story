@@ -20,13 +20,10 @@ export default class HomeView {
           ${stories
             .map((story) => {
               const date = new Date(story.createdAt);
-              const formattedDate = date.toLocaleDateString();
-              const formattedTime = date.toLocaleTimeString();
-
               return `
                 <div
                   data-id="${story.id}"
-                  class="story-card bg-white rounded-lg shadow cursor-pointer transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full overflow-hidden"
+                  class="story-card bg-white rounded-lg shadow transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full overflow-hidden"
                 >
                   <!-- Story image -->
                   <img
@@ -35,8 +32,8 @@ export default class HomeView {
                     class="w-full h-48 object-cover"
                   />
 
-                  <!-- Story author -->
                   <div class="p-4 flex flex-col flex-1">
+                    <!-- Story author -->
                     <div class="flex items-center space-x-2">
                       <i class="fas fa-user text-gray-600"></i>
                       <h2 class="font-semibold text-lg">${story.name}</h2>
@@ -45,7 +42,7 @@ export default class HomeView {
                     <!-- Story date -->
                     <div class="flex items-center text-sm text-gray-500 mt-2">
                       <i class="fas fa-calendar-days mr-1"></i>
-                      <span>${formattedDate} ${formattedTime}</span>
+                      <span>${date.toLocaleDateString()} ${date.toLocaleTimeString()}</span>
                     </div>
 
                     <!-- Story description -->
@@ -55,14 +52,26 @@ export default class HomeView {
                       ${story.description}
                     </p>
 
-                    <!-- View Details -->
-                    <a
-                      href="#/story/${story.id}"
-                      class="mt-auto self-start inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition max-w-max"
-                    >
-                      View Details
-                      <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <div class="mt-auto flex items-center justify-between">
+                      <!-- View details -->
+                      <a
+                        href="#/story/${story.id}"
+                        class="mt-auto self-start inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition max-w-max"
+                      >
+                        View Details
+                        <i class="fas fa-arrow-right ml-2"></i>
+                      </a>
+
+                      <!-- Save button -->
+                      <button
+                        type="button"
+                        data-id="${story.id}"
+                        class="save-btn text-gray-500 hover:text-primary focus:outline-none cursor-pointer"
+                        aria-label="Save story"
+                      >
+                      <i class="fas fa-bookmark fa-lg"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               `;
@@ -73,15 +82,33 @@ export default class HomeView {
     `;
   }
 
-  bindCardClicks(handler) {
+  bindSaveButtons(handler) {
     const grid = this.container.querySelector("#stories-grid");
-    if (!grid) return;
-
     grid.addEventListener("click", (event) => {
-      const card = event.target.closest(".story-card");
-      if (card) {
-        handler(card.dataset.id);
+      const btn = event.target.closest(".save-btn");
+      if (btn) handler(btn.dataset.id);
+    });
+  }
+
+  highlightSavedStories(savedIds = []) {
+    savedIds.forEach((id) => {
+      const btn = this.container.querySelector(`.save-btn[data-id="${id}"]`);
+      if (btn) {
+        btn.classList.add("text-primary");
+        btn.classList.remove("text-gray-500");
       }
     });
+  }
+
+  updateSaveButton(id, isSaved) {
+    const btn = this.container.querySelector(`.save-btn[data-id="${id}"]`);
+    if (!btn) return;
+    if (isSaved) {
+      btn.classList.add("text-primary");
+      btn.classList.remove("text-gray-500");
+    } else {
+      btn.classList.add("text-gray-500");
+      btn.classList.remove("text-primary");
+    }
   }
 }

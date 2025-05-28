@@ -3,7 +3,6 @@ import L from "leaflet";
 import Swal from "sweetalert2";
 
 delete L.Icon.Default.prototype._getIconUrl;
-
 L.Icon.Default.mergeOptions({
   iconUrl: "/assets/marker-icon-violet.png",
   iconRetinaUrl: "/assets/marker-icon-2x-violet.png",
@@ -29,6 +28,7 @@ import StoryDetailPresenter from "./presenters/StoryDetailPresenter.js";
 import AddStoryPresenter from "./presenters/AddStoryPresenter.js";
 import NotificationPresenter from "./presenters/NotificationPresenter.js";
 import NotFoundPresenter from "./presenters/NotFoundPresenter.js";
+import SavedPresenter from "./presenters/SavedPresenter.js";
 
 const BASE_URL = "https://story-api.dicoding.dev/v1";
 
@@ -73,21 +73,31 @@ router.register("/story/:id", (p) =>
   ).init(p)
 );
 
+// Saved stories page
+router.register("/saved", () => {
+  new SavedPresenter(app).init();
+});
+
 // Not found page
 router.register("*", () => {
   new NotFoundPresenter(app).init();
 });
 
+// Navigation elements
 const navHomeBtn = document.getElementById("nav-home-btn");
 const navAddBtn = document.getElementById("nav-add-story-btn");
+const navSavedBtn = document.getElementById("nav-saved-btn");
 const navNotifBtn = document.getElementById("nav-notif-btn");
 const navAuthBtn = document.getElementById("nav-auth-btn");
 
+// Mobile navigation elements
 const mobileHomeBtn = document.getElementById("mobile-nav-home-btn");
 const mobileAddBtn = document.getElementById("mobile-nav-add-btn");
+const mobileSavedBtn = document.getElementById("mobile-nav-saved-btn");
 const mobileNotifBtn = document.getElementById("mobile-nav-notif-btn");
 const mobileAuthBtn = document.getElementById("mobile-nav-auth-btn");
 
+// Notification setup
 const notifModel = new NotificationModel(BASE_URL);
 const notifView = new NotificationView(navNotifBtn, mobileNotifBtn);
 
@@ -125,6 +135,15 @@ navAddBtn.addEventListener("click", () => {
 });
 mobileAddBtn.addEventListener("click", () => {
   location.hash = "/add-story";
+  closeMobileMenu();
+});
+
+// Saved story click handlers
+navSavedBtn.addEventListener("click", () => {
+  location.hash = "/saved";
+});
+mobileSavedBtn.addEventListener("click", () => {
+  location.hash = "/saved";
   closeMobileMenu();
 });
 

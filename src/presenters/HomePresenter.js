@@ -1,57 +1,92 @@
 import L from "leaflet";
 import Swal from "sweetalert2";
+import SavedStoryModel from "../models/SavedStoryModel.js";
 
 export default class HomePresenter {
   constructor(model, view, router) {
     this.model = model;
     this.view = view;
     this.router = router;
+    this.savedModel = new SavedStoryModel();
+    this.stories = [];
   }
 
-  init() {
+  async init() {
     const name = localStorage.getItem("name") || "Guest";
     const token = localStorage.getItem("token");
 
     if (!token) {
       this.view.render(name, []);
-      this._bindClicks();
       this._initMap([]);
+      this._bindSave();
     } else {
-      this.model
-        .getAllStories(token)
-        .then((res) => {
-          if (!res.error) {
-            this.view.render(name, res.listStory);
-            this._initMap(res.listStory);
-            this._bindClicks();
-          } else {
-            this.view.render(name, []);
-            this._initMap([]);
-            this._bindClicks();
-            Swal.fire({
-              icon: "error",
-              title: "Something Went Wrong",
-              text: res.message,
-            });
-          }
-        })
-        .catch(() => {
-          this.view.render(name, []);
-          this._initMap([]);
-          this._bindClicks();
-          Swal.fire({
-            icon: "error",
-            title: "Network Error",
-            text: "Please try again later",
-          });
+      try {
+        const res = await this.model.getAllStories(token);
+        if (res.error) throw new Error(res.message);
+
+        this.stories = res.listStory;
+        this.view.render(name, this.stories);
+        this._initMap(this.stories);
+        this._bindSave();
+
+        const saved = await this.savedModel.getAll();
+        const savedIds = saved.map((s) => s.id);
+        this.view.highlightSavedStories(savedIds);
+      } catch (err) {
+        this.view.render(name, []);
+        this._initMap([]);
+        this._bindSave();
+        Swal.fire({
+          icon: "error",
+          title: "Bookmark Failed",
+          text: err.message,
         });
+      }
     }
   }
 
-  _bindClicks() {
-    this.view.bindCardClicks((id) => {
-      location.hash = `/story/${id}`;
-    });
+  _bindSave() {
+    this.view.bindSaveButtons((id) => this._handleSaveClick(id));
+  }
+
+  async _handleSaveClick(id) {
+    const story = this.stories.find((s) => s.id === id);
+    if (!story) return;
+
+    const exists = await this.savedModel.exists(id);
+
+    if (!exists) {
+      await this.savedModel.save(story);
+      this.view.updateSaveButton(id, true);
+      Swal.fire({
+        icon: "success",
+        title: "Bookmarked!",
+        text: "This story is now in your bookmarks",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } else {
+      const result = await Swal.fire({
+        title: "Are You Sure You Want to Remove This Bookmark?",
+        text: "This action cannot be undone",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Remove",
+        cancelButtonText: "Cancel",
+      });
+
+      if (result.isConfirmed) {
+        await this.savedModel.delete(id);
+        this.view.updateSaveButton(id, false);
+        Swal.fire({
+          icon: "success",
+          title: "Bookmark Removed!",
+          text: "This story has been removed from your bookmarks",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    }
   }
 
   _initMap(stories) {

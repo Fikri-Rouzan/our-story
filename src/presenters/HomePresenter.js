@@ -38,7 +38,7 @@ export default class HomePresenter {
         this._bindSave();
         Swal.fire({
           icon: "error",
-          title: "Bookmark Failed",
+          title: "Error!",
           text: err.message,
         });
       }

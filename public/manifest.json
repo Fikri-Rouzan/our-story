@@ -1,0 +1,15 @@
+{
+  "name": "Our Story",
+  "short_name": "Our Story",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#8f87f1",
+  "icons": [
+    {
+      "src": "/assets/logo.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}

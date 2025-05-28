@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && workbox generateSW workbox-config.cjs",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -19,6 +19,7 @@
     "idb": "^8.0.3",
     "leaflet": "^1.9.4",
     "sweetalert2": "^11.21.2",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.7",
+    "workbox-cli": "^7.3.0"
   }
 }

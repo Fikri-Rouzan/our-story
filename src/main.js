@@ -9,6 +9,15 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "/assets/marker-shadow.png",
 });
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("SW registered", reg.scope))
+      .catch((err) => console.error("SW registration failed", err));
+  });
+}
+
 import Router from "./router.js";
 import AuthModel from "./models/AuthModel.js";
 import StoryModel from "./models/StoryModel.js";

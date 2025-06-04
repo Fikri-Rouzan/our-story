@@ -9,8 +9,9 @@
   "icons": [
     {
       "src": "/assets/logo.png",
-      "sizes": "64x64",
-      "type": "image/png"
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
 
@@ -23,8 +24,9 @@
       "icons": [
         {
           "src": "/assets/shortcut.png",
-          "sizes": "128x128",
-          "type": "image/png"
+          "sizes": "256x256",
+          "type": "image/png",
+          "purpose": "any"
         }
       ]
     }
@@ -35,13 +37,17 @@
       "src": "/assets/mobile.png",
       "type": "image/png",
       "sizes": "512x512",
-      "label": "Our Story (Mobile)"
+      "label": "Our Story (Mobile)",
+      "form_factor": "narrow",
+      "purpose": "any"
     },
     {
       "src": "/assets/desktop.png",
       "type": "image/png",
       "sizes": "512x512",
-      "label": "Our Story (Desktop)"
+      "label": "Our Story (Desktop)",
+      "form_factor": "wide",
+      "purpose": "any"
     }
   ]
 }

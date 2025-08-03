@@ -93,6 +93,7 @@ export default class RegisterView {
               <!-- Submit -->
               <button
                 type="submit"
+                id="btn-submit"
                 class="w-full bg-primary text-white py-3 font-semibold rounded-xl hover:bg-secondary transition-colors duration-300 cursor-pointer mt-2"
               >
                 Sign Up
@@ -142,5 +143,36 @@ export default class RegisterView {
       icon.classList.toggle("fa-eye");
       icon.classList.toggle("fa-eye-slash");
     });
+  }
+
+  showLoading() {
+    const submitButton = this.container.querySelector("#btn-submit");
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = `
+        <i class="fas fa-circle-notch fa-spin mr-2"></i>
+        Creating Account...
+      `;
+      submitButton.classList.remove(
+        "bg-primary",
+        "hover:bg-secondary",
+        "cursor-pointer"
+      );
+      submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+    }
+  }
+
+  hideLoading() {
+    const submitButton = this.container.querySelector("#btn-submit");
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.innerHTML = "Sign Up";
+      submitButton.classList.add(
+        "bg-primary",
+        "hover:bg-secondary",
+        "cursor-pointer"
+      );
+      submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+    }
   }
 }

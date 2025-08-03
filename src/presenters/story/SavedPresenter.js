@@ -40,7 +40,7 @@ export default class SavedPresenter {
     if (result.isConfirmed) {
       await this.model.delete(id);
 
-      await Swal.fire({
+      Swal.fire({
         toast: true,
         position: "top-right",
         icon: "success",

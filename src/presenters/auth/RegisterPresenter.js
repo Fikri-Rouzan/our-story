@@ -13,46 +13,49 @@ export default class RegisterPresenter {
     this.view.bindSubmit(this.handleRegister.bind(this));
   }
 
-  handleRegister(data) {
-    this.model
-      .register(data)
-      .then((res) => {
-        if (!res.error) {
-          Swal.fire({
-            toast: true,
-            position: "top-right",
-            icon: "success",
-            title: "Sign Up Successful!",
-            text: "Your account has been created. Please sign in to continue",
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
-            customClass: {
-              container: "swal-container",
-            },
-          });
+  async handleRegister(data) {
+    this.view.showLoading();
 
-          location.hash = "/login";
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Sign Up Failed",
-            text: res.message,
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
-          });
-        }
-      })
-      .catch(() => {
+    try {
+      const res = await this.model.register(data);
+
+      if (!res.error) {
+        location.hash = "/login";
+
+        Swal.fire({
+          toast: true,
+          position: "top-right",
+          icon: "success",
+          title: "Sign Up Successful!",
+          text: "Your account has been created. Please sign in to continue",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
+          customClass: {
+            container: "swal-container",
+          },
+        });
+      } else {
         Swal.fire({
           icon: "error",
-          title: "Network Error",
-          text: "Please check your internet connection and try again",
+          title: "Sign Up Failed",
+          text: res.message,
           showConfirmButton: false,
           timer: 2500,
           timerProgressBar: true,
         });
+      }
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Network Error",
+        text: "Please check your internet connection and try again",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
       });
+    } finally {
+      this.view.hideLoading();
+    }
   }
 }

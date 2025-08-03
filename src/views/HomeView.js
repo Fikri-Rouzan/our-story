@@ -23,7 +23,7 @@ export default class HomeView {
               return `
                 <div
                   data-id="${story.id}"
-                  class="story-card bg-white rounded-lg shadow transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full overflow-hidden"
+                  class="story-card bg-white rounded-lg shadow transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full overflow-hidden"
                 >
                   <!-- Story image -->
                   <img
@@ -40,14 +40,14 @@ export default class HomeView {
                     </div>
 
                     <!-- Story date -->
-                    <div class="flex items-center text-sm text-gray-500 mt-2">
+                    <div class="flex items-center text-sm text-gray-600 mt-2">
                       <i class="fas fa-calendar-days mr-1"></i>
                       <span>${date.toLocaleDateString()} ${date.toLocaleTimeString()}</span>
                     </div>
 
                     <!-- Story description -->
                     <p
-                      class="text-sm text-gray-700 mt-3 mb-5 text-justify line-clamp-4"
+                      class="text-sm text-gray-600 mt-3 mb-5 text-justify line-clamp-4"
                     >
                       ${story.description}
                     </p>
@@ -56,7 +56,7 @@ export default class HomeView {
                       <!-- View details -->
                       <a
                         href="#/story/${story.id}"
-                        class="mt-auto self-start inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition max-w-max"
+                        class="mt-auto self-start inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition-colors duration-300 max-w-max"
                       >
                         View Details
                         <i class="fas fa-arrow-right ml-2"></i>
@@ -66,7 +66,7 @@ export default class HomeView {
                       <button
                         type="button"
                         data-id="${story.id}"
-                        class="save-btn text-gray-500 hover:text-primary focus:outline-none cursor-pointer"
+                        class="save-btn text-gray-600 hover:text-primary transition-colors duration-300 focus:outline-none cursor-pointer"
                         aria-label="Save story"
                       >
                       <i class="fas fa-bookmark fa-lg"></i>
@@ -95,7 +95,7 @@ export default class HomeView {
       const btn = this.container.querySelector(`.save-btn[data-id="${id}"]`);
       if (btn) {
         btn.classList.add("text-primary");
-        btn.classList.remove("text-gray-500");
+        btn.classList.remove("text-gray-600");
       }
     });
   }
@@ -105,9 +105,9 @@ export default class HomeView {
     if (!btn) return;
     if (isSaved) {
       btn.classList.add("text-primary");
-      btn.classList.remove("text-gray-500");
+      btn.classList.remove("text-gray-600");
     } else {
-      btn.classList.add("text-gray-500");
+      btn.classList.add("text-gray-600");
       btn.classList.remove("text-primary");
     }
   }

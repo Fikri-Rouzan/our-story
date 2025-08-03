@@ -20,7 +20,7 @@ export default class AddStoryView {
           <nav aria-label="Back navigation">
             <button id="back-btn"
                     class="inline-flex items-center px-3 py-2 bg-primary text-white
-                           font-medium rounded hover:bg-secondary transition cursor-pointer">
+                           font-medium rounded hover:bg-secondary transition-colors duration-300 cursor-pointer">
               <i class="fas fa-arrow-left mr-2"></i>
               Back
             </button>
@@ -58,7 +58,7 @@ export default class AddStoryView {
                 <!-- Camera Button -->
                 <button type="button" id="btn-camera"
                         class="w-full flex items-center justify-center space-x-2
-                               bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 transition cursor-pointer">
+                               bg-gray-200 text-gray-600 py-2 rounded hover:bg-gray-300 transition-colors duration-300 cursor-pointer">
                   <i class="fas fa-camera"></i>
                   <span>Take Photo</span>
                 </button>
@@ -69,7 +69,7 @@ export default class AddStoryView {
                 <video id="video" autoplay playsinline
                        class="w-full h-full bg-black rounded"></video>
                 <button type="button" id="btn-capture"
-                        class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition flex items-center justify-center space-x-2 cursor-pointer">
+                        class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition-colors duration-300 flex items-center justify-center space-x-2 cursor-pointer">
                   <i class="fas fa-camera-retro"></i>
                   <span>Capture Photo</span>
                 </button>
@@ -80,7 +80,7 @@ export default class AddStoryView {
                 <img id="preview" alt="Photo preview"
                      class="w-full h-full object-cover rounded"/>
                 <button type="button" id="btn-retake"
-                        class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition flex items-center justify-center space-x-2 cursor-pointer">
+                        class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition-colors duration-300 flex items-center justify-center space-x-2 cursor-pointer">
                   <i class="fas fa-redo"></i>
                   <span>Retake Photo</span>
                 </button>
@@ -89,11 +89,11 @@ export default class AddStoryView {
               <!-- Upload -->
               <div id="upload-container"
                    class="border-2 border-dashed border-gray-300 rounded-lg h-60
-                          flex flex-col items-center justify-center text-gray-500
-                          cursor-pointer transition hover:border-primary hover:bg-primary/10">
+                          flex flex-col items-center justify-center text-gray-600
+                          cursor-pointer transition-colors duration-300 hover:border-primary hover:bg-primary/10">
                 <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
                 <p class="font-medium">Upload Photo</p>
-                <p class="text-sm text-gray-400">Drag & drop or click to upload photo</p>
+                <p class="text-sm text-gray-600">Drag & drop or click to upload photo</p>
                 <input id="photo-upload" name="photo" type="file" accept="image/*"
                        class="hidden"/>
               </div>
@@ -102,9 +102,9 @@ export default class AddStoryView {
 
               <!-- Map -->
               <div>
-                <label for="map-add" class="block mb-1 font-medium">
+                <span class="block mb-1 font-medium">
                   Choose Location
-                </label>
+                </span>
                 <div id="map-add"
                      role="region"
                      aria-label="Map for selecting location"
@@ -116,7 +116,7 @@ export default class AddStoryView {
 
               <!-- Submit -->
               <button type="submit" id="btn-submit"
-                      class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition flex items-center justify-center space-x-2 cursor-pointer mt-2">
+                      class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition-colors duration-300 flex items-center justify-center space-x-2 cursor-pointer mt-2">
                 <i class="fas fa-paper-plane"></i>
                 <span>Post Story</span>
               </button>
@@ -199,11 +199,19 @@ export default class AddStoryView {
   }
 
   _setMode(mode) {
-    const activeClasses = ["bg-primary", "text-white", "hover:bg-secondary"];
+    const activeClasses = [
+      "bg-primary",
+      "text-white",
+      "hover:bg-secondary",
+      "transition-colors",
+      "duration-300",
+    ];
     const inactiveClasses = [
       "bg-gray-200",
-      "text-gray-700",
+      "text-gray-600",
       "hover:bg-gray-300",
+      "transition-colors",
+      "duration-300",
     ];
     if (mode === "upload") {
       this.btnUpload.classList.add(...activeClasses);
@@ -224,7 +232,7 @@ export default class AddStoryView {
       this.uploadFeedback.innerHTML = `
         <span class="truncate">${file.name}</span>
         <button type="button" id="clear-upload" aria-label="Remove selected file"
-                class="text-gray-500 hover:text-red-600 focus:outline-none cursor-pointer">
+                class="text-gray-600 hover:text-red-600 transition-colors duration-300 focus:outline-none cursor-pointer">
           <i class="fas fa-trash"></i>
         </button>
       `;
@@ -255,6 +263,9 @@ export default class AddStoryView {
           icon: "error",
           title: "Unable to Access Camera",
           text: "Cannot access the camera. Please make sure permission has been granted and that your device has a camera",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       });
   }

@@ -1,4 +1,4 @@
-import { dbPromise } from "../utils/db.js";
+import { dbPromise } from "../../utils/db.js";
 
 export default class SavedStoryModel {
   async save(story) {

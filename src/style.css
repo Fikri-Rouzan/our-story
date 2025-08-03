@@ -6,8 +6,12 @@
   --color-secondary: #7a70ee;
 }
 
-* {
+html {
   font-family: var(--font-outfit);
+}
+
+.swal-container {
+  z-index: 3000;
 }
 
 @layer base {

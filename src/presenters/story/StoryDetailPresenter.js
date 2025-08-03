@@ -25,6 +25,9 @@ export default class StoryDetailPresenter {
             icon: "error",
             title: "Couldn't Load Story",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       })
@@ -33,6 +36,9 @@ export default class StoryDetailPresenter {
           icon: "error",
           title: "Network Error",
           text: "Please try again later",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       });
   }
@@ -81,10 +87,10 @@ export default class StoryDetailPresenter {
 
     const popupContent = `
       <strong class="block font-semibold text-sm">${story.name}</strong>
-      <p class="text-xs text-gray-500">
+      <p class="text-xs text-gray-600">
         ${new Date(story.createdAt).toLocaleString()}
       </p>
-      <p class="text-sm text-justify text-gray-700 line-clamp-2">
+      <p class="text-sm text-justify text-gray-600 line-clamp-2">
         ${story.description}
       </p>
     `;

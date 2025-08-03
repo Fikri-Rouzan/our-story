@@ -22,19 +22,28 @@ export default class LoginPresenter {
           localStorage.setItem("name", res.loginResult.name);
 
           Swal.fire({
+            toast: true,
+            position: "top-right",
             icon: "success",
             title: "Sign In Successful!",
             text: `Welcome back, ${res.loginResult.name}!`,
             showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            location.hash = "/";
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+              container: "swal-container",
+            },
           });
+
+          location.hash = "/";
         } else {
           Swal.fire({
             icon: "error",
             title: "Sign In Failed",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       })
@@ -43,6 +52,9 @@ export default class LoginPresenter {
           icon: "error",
           title: "Network Error",
           text: "Please try again later",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       });
   }

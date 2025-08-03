@@ -30,6 +30,9 @@ export default class NotificationPresenter {
         icon: "error",
         title: "Push Notifications Not Supported",
         text: "Your browser doesn’t support push notifications. Please update or try a different browser",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
       });
       return;
     }
@@ -45,6 +48,9 @@ export default class NotificationPresenter {
         icon: "error",
         title: "Service Worker Registration Failed",
         text: "We couldn’t register the service worker. Please refresh the page and try again",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
       });
     }
   }
@@ -57,6 +63,9 @@ export default class NotificationPresenter {
         icon: "warning",
         title: "Sign In Required",
         text: "Please sign in to manage your notifications",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
       });
       return;
     }
@@ -72,15 +81,26 @@ export default class NotificationPresenter {
           this.view.setSubscribed(false);
 
           await Swal.fire({
+            toast: true,
+            position: "top-right",
             icon: "success",
             title: "Notifications Disabled!",
             text: "You won’t receive notifications anymore",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+              container: "swal-container",
+            },
           });
         } else {
           await Swal.fire({
             icon: "error",
             title: "Something Went Wrong",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       } else {
@@ -91,6 +111,9 @@ export default class NotificationPresenter {
             icon: "error",
             title: "Notifications Permission Denied",
             text: "You have blocked notifications. To stay updated, please enable notifications in your browser or system settings",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
           return;
         }
@@ -105,15 +128,26 @@ export default class NotificationPresenter {
         if (!res.error) {
           this.view.setSubscribed(true);
           await Swal.fire({
+            toast: true,
+            position: "top-right",
             icon: "success",
             title: "Notifications Enabled!",
             text: "You’ll now receive notifications",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+              container: "swal-container",
+            },
           });
         } else {
           await Swal.fire({
             icon: "error",
             title: "Something Went Wrong",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       }
@@ -122,6 +156,9 @@ export default class NotificationPresenter {
         icon: "error",
         title: "Network Error",
         text: "Please try again later",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
       });
     }
   }

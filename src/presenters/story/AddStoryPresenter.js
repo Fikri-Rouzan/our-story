@@ -36,18 +36,28 @@ export default class AddStoryPresenter {
       .then((res) => {
         if (!res.error) {
           Swal.fire({
+            toast: true,
+            position: "top-right",
             icon: "success",
             title: "Story Added!",
             text: "Your story has been added",
-            confirmButtonText: "OK",
-          }).then(() => {
-            location.hash = "/";
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+              container: "swal-container",
+            },
           });
+
+          location.hash = "/";
         } else {
           Swal.fire({
             icon: "error",
             title: "Something Went Wrong",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       })
@@ -56,6 +66,9 @@ export default class AddStoryPresenter {
           icon: "error",
           title: "Network Error",
           text: "Please try again later",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       });
   }

@@ -19,25 +19,25 @@ if ("serviceWorker" in navigator) {
 }
 
 import Router from "./router.js";
-import AuthModel from "./models/AuthModel.js";
-import StoryModel from "./models/StoryModel.js";
+import AuthModel from "./models/auth/AuthModel.js";
+import StoryModel from "./models/story/StoryModel.js";
 import NotificationModel from "./models/NotificationModel.js";
 
-import RegisterView from "./views/RegisterView.js";
-import LoginView from "./views/LoginView.js";
+import RegisterView from "./views/auth/RegisterView.js";
+import LoginView from "./views/auth/LoginView.js";
 import HomeView from "./views/HomeView.js";
-import StoryDetailView from "./views/StoryDetailView.js";
-import AddStoryView from "./views/AddStoryView.js";
+import StoryDetailView from "./views/story/StoryDetailView.js";
+import AddStoryView from "./views/story/AddStoryView.js";
 import NotificationView from "./views/NotificationView.js";
 
-import RegisterPresenter from "./presenters/RegisterPresenter.js";
-import LoginPresenter from "./presenters/LoginPresenter.js";
+import RegisterPresenter from "./presenters/auth/RegisterPresenter.js";
+import LoginPresenter from "./presenters/auth/LoginPresenter.js";
 import HomePresenter from "./presenters/HomePresenter.js";
-import StoryDetailPresenter from "./presenters/StoryDetailPresenter.js";
-import AddStoryPresenter from "./presenters/AddStoryPresenter.js";
+import StoryDetailPresenter from "./presenters/story/StoryDetailPresenter.js";
+import AddStoryPresenter from "./presenters/story/AddStoryPresenter.js";
+import SavedPresenter from "./presenters/story/SavedPresenter.js";
 import NotificationPresenter from "./presenters/NotificationPresenter.js";
 import NotFoundPresenter from "./presenters/NotFoundPresenter.js";
-import SavedPresenter from "./presenters/SavedPresenter.js";
 
 const BASE_URL = "https://story-api.dicoding.dev/v1";
 
@@ -189,18 +189,25 @@ function handleLogout() {
     text: "You'll be signed out of your account",
     icon: "warning",
     showCancelButton: true,
+    confirmButtonColor: "#8f87f1",
     confirmButtonText: "Sign Out",
     cancelButtonText: "Cancel",
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.clear();
-      location.hash = "/";
+      location.hash = "/login";
       updateAuthButtons();
       Swal.fire({
+        toast: true,
+        position: "top-right",
         icon: "success",
         title: "You Have Successfully Signed Out",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          container: "swal-container",
+        },
       });
     }
   });

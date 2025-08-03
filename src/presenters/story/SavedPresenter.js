@@ -1,7 +1,7 @@
 import L from "leaflet";
 import Swal from "sweetalert2";
-import SavedStoryModel from "../models/SavedStoryModel.js";
-import SavedView from "../views/SavedView.js";
+import SavedStoryModel from "../../models/story/SavedStoryModel.js";
+import SavedView from "../../views/story/SavedView.js";
 
 export default class SavedPresenter {
   constructor(container, router) {
@@ -32,6 +32,7 @@ export default class SavedPresenter {
       text: "This action cannot be undone",
       icon: "warning",
       showCancelButton: true,
+      confirmButtonColor: "#8f87f1",
       confirmButtonText: "Remove",
       cancelButtonText: "Cancel",
     });
@@ -40,11 +41,17 @@ export default class SavedPresenter {
       await this.model.delete(id);
 
       await Swal.fire({
+        toast: true,
+        position: "top-right",
         icon: "success",
         title: "Bookmark Removed!",
         text: "This story has been removed from your bookmarks",
-        timer: 1500,
         showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          container: "swal-container",
+        },
       });
 
       this.init();
@@ -103,7 +110,7 @@ export default class SavedPresenter {
             </strong>
     
             <!-- Story date -->
-            <p class="text-xs text-gray-500">
+            <p class="text-xs text-gray-600">
                 ${new Date(story.createdAt).toLocaleString()}
             </p>
     
@@ -115,14 +122,14 @@ export default class SavedPresenter {
             />
     
             <!-- Story description -->
-            <p class="text-sm text-justify text-gray-700 line-clamp-2">
+            <p class="text-sm text-justify text-gray-600 line-clamp-2">
                 ${story.description}
             </p>
     
             <!-- View Details -->
             <a
                 href="#/story/${story.id}"
-                class="inline-block text-sm text-primary underline hover:text-secondary"
+                class="inline-block text-sm text-primary underline hover:text-secondary transition-colors duration-300"
             >
                 View Details
             </a>

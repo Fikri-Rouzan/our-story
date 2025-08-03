@@ -12,7 +12,7 @@ export default class StoryDetailView {
           <nav aria-label="Back navigation">
             <button
               id="back-btn"
-              class="inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition cursor-pointer"
+              class="inline-flex items-center px-3 py-2 bg-primary text-white font-medium rounded hover:bg-secondary transition-colors duration-300 cursor-pointer"
             >
               <i class="fas fa-arrow-left mr-2"></i>
               Back
@@ -40,7 +40,7 @@ export default class StoryDetailView {
                 </h1>
                 
                 <!-- Story date -->
-                <div class="flex items-center text-gray-500 mb-6 space-x-2">
+                <div class="flex items-center text-gray-600 mb-6 space-x-2">
                   <i class="fas fa-calendar-alt"></i>
                   <time datetime="${story.createdAt}">
                     ${new Date(story.createdAt).toLocaleString()}
@@ -48,7 +48,7 @@ export default class StoryDetailView {
                 </div>
                 
                 <!-- Story description -->
-                <p class="text-gray-700 flex-1">
+                <p class="text-gray-600 flex-1">
                   ${story.description}
                 </p>
               </div>

@@ -30,10 +30,11 @@ export default class RegisterView {
               <div>
                 <label for="name" class="block mb-1 font-medium">Full Name</label>
                 <div class="relative">
-                  <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                  <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
                   <input
                     type="text"
                     id="name"
+                    autoComplete="name"
                     name="name"
                     required
                     placeholder="Enter your full name"
@@ -47,11 +48,12 @@ export default class RegisterView {
               <div>
                 <label for="email" class="block mb-1 font-medium">Email</label>
                 <div class="relative">
-                  <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                  <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
                   <input
                     type="email"
                     id="email"
                     name="email"
+                    autoComplete="email"
                     required
                     placeholder="Enter your email"
                     class="w-full border border-gray-300 rounded-md px-3 py-2 pl-10
@@ -64,7 +66,7 @@ export default class RegisterView {
               <div>
                 <label for="password" class="block mb-1 font-medium">Password</label>
                 <div class="relative">
-                  <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                  <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
                   <input
                     type="password"
                     id="password"
@@ -81,7 +83,7 @@ export default class RegisterView {
                     id="toggle-password"
                     aria-label="Toggle password visibility"
                     class="absolute inset-y-0 right-0 pr-3 flex items-center
-                           text-gray-500 hover:text-gray-700 focus:outline-none"
+                           text-gray-500 hover:text-gray-700 transition-colors duration-300 focus:outline-none"
                   >
                     <i class="fas fa-eye cursor-pointer"></i>
                   </button>
@@ -91,7 +93,7 @@ export default class RegisterView {
               <!-- Submit -->
               <button
                 type="submit"
-                class="w-full bg-primary text-white py-3 font-semibold rounded-xl hover:bg-secondary transition cursor-pointer mt-2"
+                class="w-full bg-primary text-white py-3 font-semibold rounded-xl hover:bg-secondary transition-colors duration-300 cursor-pointer mt-2"
               >
                 Sign Up
               </button>

@@ -19,18 +19,28 @@ export default class RegisterPresenter {
       .then((res) => {
         if (!res.error) {
           Swal.fire({
+            toast: true,
+            position: "top-right",
             icon: "success",
             title: "Sign Up Successful!",
             text: "Your account has been created. Please sign in to continue",
-            confirmButtonText: "Sign In",
-          }).then(() => {
-            location.hash = "/login";
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+              container: "swal-container",
+            },
           });
+
+          location.hash = "/login";
         } else {
           Swal.fire({
             icon: "error",
             title: "Sign Up Failed",
             text: res.message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       })
@@ -39,6 +49,9 @@ export default class RegisterPresenter {
           icon: "error",
           title: "Network Error",
           text: "Please check your internet connection and try again",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       });
   }

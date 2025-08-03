@@ -12,7 +12,7 @@ export default class SavedView {
         <nav aria-label="Back navigation">
           <button id="back-btn"
                   class="inline-flex items-center px-3 py-2 bg-primary text-white
-                         font-medium rounded hover:bg-secondary transition cursor-pointer mb-6">
+                         font-medium rounded hover:bg-secondary transition-colors duration-300 cursor-pointer mb-6">
             <i class="fas fa-arrow-left mr-2"></i>
             Back
           </button>
@@ -32,7 +32,7 @@ export default class SavedView {
               const date = new Date(story.createdAt);
               return `
               <div class="story-card bg-white rounded-lg shadow
-                          transform transition-transform duration-300
+                          transform transition-all duration-300
                           hover:-translate-y-1 hover:shadow-lg
                           flex flex-col h-full overflow-hidden">
                 
@@ -51,13 +51,13 @@ export default class SavedView {
                   </div>
 
                   <!-- Story date -->
-                  <div class="flex items-center text-sm text-gray-500 mt-2">
+                  <div class="flex items-center text-sm text-gray-600 mt-2">
                     <i class="fas fa-calendar-days mr-1"></i>
                     <span>${date.toLocaleDateString()} ${date.toLocaleTimeString()}</span>
                   </div>
 
                   <!-- Story description -->
-                  <p class="text-sm text-gray-700 mt-3 mb-5 text-justify line-clamp-4">
+                  <p class="text-sm text-gray-600 mt-3 mb-5 text-justify line-clamp-4">
                     ${story.description}
                   </p>
 
@@ -66,7 +66,7 @@ export default class SavedView {
                     <a
                       href="#/story/${story.id}"
                       class="inline-flex items-center px-3 py-2 bg-primary text-white
-                             font-medium rounded hover:bg-secondary transition max-w-max"
+                             font-medium rounded hover:bg-secondary transition-colors duration-300 max-w-max"
                     >
                       View Details
                       <i class="fas fa-arrow-right ml-2"></i>
@@ -76,7 +76,7 @@ export default class SavedView {
                     <button
                       type="button"
                       data-id="${story.id}"
-                      class="delete-btn text-gray-500 hover:text-red-600 focus:outline-none cursor-pointer"
+                      class="delete-btn text-gray-600 hover:text-red-600 transition-colors duration-300 focus:outline-none cursor-pointer"
                       aria-label="Delete saved story"
                     >
                       <i class="fas fa-trash fa-lg"></i>

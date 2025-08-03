@@ -1,6 +1,6 @@
 import L from "leaflet";
 import Swal from "sweetalert2";
-import SavedStoryModel from "../models/SavedStoryModel.js";
+import SavedStoryModel from "../models/story/SavedStoryModel.js";
 
 export default class HomePresenter {
   constructor(model, view, router) {
@@ -40,6 +40,9 @@ export default class HomePresenter {
           icon: "error",
           title: "Error!",
           text: err.message,
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       }
     }
@@ -59,11 +62,17 @@ export default class HomePresenter {
       await this.savedModel.save(story);
       this.view.updateSaveButton(id, true);
       Swal.fire({
+        toast: true,
+        position: "top-right",
         icon: "success",
         title: "Bookmarked!",
         text: "This story is now in your bookmarks",
-        timer: 1500,
         showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          container: "swal-container",
+        },
       });
     } else {
       const result = await Swal.fire({
@@ -71,6 +80,7 @@ export default class HomePresenter {
         text: "This action cannot be undone",
         icon: "warning",
         showCancelButton: true,
+        confirmButtonColor: "#8f87f1",
         confirmButtonText: "Remove",
         cancelButtonText: "Cancel",
       });
@@ -79,11 +89,17 @@ export default class HomePresenter {
         await this.savedModel.delete(id);
         this.view.updateSaveButton(id, false);
         Swal.fire({
+          toast: true,
+          position: "top-right",
           icon: "success",
           title: "Bookmark Removed!",
           text: "This story has been removed from your bookmarks",
-          timer: 1500,
           showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
+          customClass: {
+            container: "swal-container",
+          },
         });
       }
     }
@@ -141,7 +157,7 @@ export default class HomePresenter {
           </strong>
 
           <!-- Story date -->
-          <p class="text-xs text-gray-500">
+          <p class="text-xs text-gray-600">
             ${new Date(story.createdAt).toLocaleString()}
           </p>
 
@@ -153,14 +169,14 @@ export default class HomePresenter {
           />
 
           <!-- Story description -->
-          <p class="text-sm text-justify text-gray-700 line-clamp-2">
+          <p class="text-sm text-justify text-gray-600 line-clamp-2">
             ${story.description}
           </p>
 
           <!-- View Details -->
           <a
             href="#/story/${story.id}"
-            class="inline-block text-sm text-primary underline hover:text-secondary"
+            class="inline-block text-sm text-primary underline hover:text-secondary transition-colors duration-300"
           >
             View Details
           </a>

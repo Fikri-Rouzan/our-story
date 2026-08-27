@@ -52,7 +52,19 @@ npm i
 pnpm i
 ```
 
-5. **Run the Program**
+5. **Configure Environment Variable**
+
+```bash
+cp .env.example .env
+```
+
+- Open the `.env` file and configure the following variable
+
+  ```env
+  VITE_MAPTILER_API_KEY="YOUR_MAPTILER_API_KEY"
+  ```
+
+6. **Run the Program**
 
 ```bash
 # Using npm

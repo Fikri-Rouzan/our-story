@@ -13,7 +13,7 @@ A Progressive Web App (PWA) for sharing personal stories with interactive geoloc
 | 🌐 **Programming Language** | `JavaScript`                                     |
 | 📄 **Markup Language**      | `HTML`                                           |
 | 🧩 **Framework**            | `Tailwind CSS`                                   |
-| ⚛️ **Libraries**            | `Leaflet`, `SweetAlert2`, `IndexedDB`, `Workbox` |
+| ⚛️ **Libraries**            | `Leaflet`, `sweetalert2`, `IndexedDB`, `Workbox` |
 | ⚡ **Tool**                 | `Vite`                                           |
 | 🗺️ **Map Services**         | `OpenStreetMap`, `MapTiler`                      |
 | 🚀 **Deployment**           | `Netlify`                                        |
